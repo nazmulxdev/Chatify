@@ -7,7 +7,7 @@ import {
 
 const router = Router();
 
-router.get("/signup", signUp);
+router.post("/signup", signUp);
 router.get("/login", login);
 router.get("/logout", logout);
 
