@@ -62,15 +62,43 @@ const signUp = async (req, res) => {
   }
 };
 const login = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    res.send("login endpoint");
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Email and Password are required." });
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid credentials." });
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Invalid credentials." });
+    }
+
+    generateToken(user.id, res);
+    res.status(200).json({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profilePic: user.profilePic,
+      message: `${user.fullName} login successfully.`,
+    });
   } catch (error) {
+    console.log("error in the log in controller", error);
     res.status(500).send({ message: "Server Error" });
   }
 };
 const logout = async (req, res) => {
   try {
-    res.send("logout endpoint");
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: false,
+    });
+    res.status(200).json({ message: "Logged out successfully." });
   } catch (error) {
     res.status(500).send({ message: "Server Error" });
   }
