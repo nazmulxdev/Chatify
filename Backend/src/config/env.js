@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-export const ENV = {
+export const envFiles = {
   PORT: process.env.PORT,
   NODE_ENV: process.env.NODE_ENV,
 
@@ -16,4 +16,9 @@ export const ENV = {
 
   GMAIL_USER: process.env.GMAIL_USER,
   GMAIL_PASS: process.env.GMAIL_PASS,
+
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+  CLOUDINARY_URL: process.env.CLOUDINARY_URL,
 };

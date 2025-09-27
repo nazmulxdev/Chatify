@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/nazmulxdev/Chatify/issues"
   },
-  "homepage": "https://github.com/nazmulxdev/Chatify#readme"
+  "homepage": "https://github.com/nazmulxdev/Chatify#readme",
+  "dependencies": {
+    "cloudinary": "^2.7.0"
+  }
 }
