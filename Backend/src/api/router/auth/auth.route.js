@@ -6,8 +6,10 @@ import {
   updateProfile,
 } from "../../controller/auth/auth.controller.js";
 import { verifyToken } from "../../middlewares/auth.middleware.js";
+import arcjetProtection from "../../middlewares/arcjet.middleware.js";
 
 const router = Router();
+router.use(arcjetProtection);
 
 router.post("/signup", signUp);
 router.post("/login", login);
