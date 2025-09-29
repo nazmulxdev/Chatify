@@ -10,6 +10,7 @@ import arcjetProtection from "../../middlewares/arcjet.middleware.js";
 
 const router = Router();
 router.use(arcjetProtection, verifyToken);
+
 router.get("/contacts", getAllContacts);
 router.get("/chats", getAllChats);
 router.get("/:id/messages", getMessageById);
