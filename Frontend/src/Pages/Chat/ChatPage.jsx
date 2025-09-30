@@ -1,8 +1,8 @@
 import useGlobalContext from "../../Hooks/useGlobalContext";
 
 const ChatPage = () => {
-  const { email } = useGlobalContext();
-  console.log(email);
+  const { currentUser } = useGlobalContext();
+  console.log(currentUser);
   return (
     <div>
       <p>This is chat page.</p>

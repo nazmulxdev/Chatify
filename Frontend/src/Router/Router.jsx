@@ -5,6 +5,7 @@ import Auth from "../Layouts/AuthLayouts/Auth";
 import Login from "../Pages/Auth/Login";
 import SignUp from "../Pages/Auth/SignUp";
 import ChatPage from "../Pages/Chat/ChatPage";
+import PrivateRoutes from "../Routes/privateRoutes";
 
 const Router = createBrowserRouter([
   {
@@ -13,7 +14,11 @@ const Router = createBrowserRouter([
     children: [
       {
         path: "/chat",
-        Component: ChatPage,
+        element: (
+          <PrivateRoutes>
+            <ChatPage></ChatPage>
+          </PrivateRoutes>
+        ),
       },
     ],
   },
