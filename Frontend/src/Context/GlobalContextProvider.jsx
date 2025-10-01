@@ -55,6 +55,28 @@ const GlobalContextProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  const logoutHandler = async () => {
+    setLoading(true);
+    try {
+      const res = await axiosInstance.post("/logout");
+      setCurrentUser(null);
+      Swal.fire({
+        icon: "success",
+        title: `${res?.data?.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error}`,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -91,8 +113,13 @@ const GlobalContextProvider = ({ children }) => {
     setLoading,
     signupHandler,
     loginHandler,
+    logoutHandler,
   };
-  return <GlobalContext value={contextData}>{children}</GlobalContext>;
+  return (
+    <GlobalContext.Provider value={contextData}>
+      {children}
+    </GlobalContext.Provider>
+  );
 };
 
 export default GlobalContextProvider;
