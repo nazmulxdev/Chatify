@@ -9,6 +9,28 @@ const GlobalContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // chat related context
+
+  // const [allContacts, setAllContacts] = useState([]);
+  // const [chats, setChats] = useState();
+  // const [messages, setMessages] = useState();
+  // const [activeTab, setActiveTab] = useState("chats");
+  // const [selectedUser, setSelectedUser] = useState(null);
+  // const [isUsersLoading, setUsersLoading] = useState(false);
+  // const [isMessagesLoading, setMessagesLoading] = useState(false);
+  // const [isSoundEnabled, setSoundEnabled] = useState(false);
+
+  // const toggleSound = () => {
+  //   localStorage.setItem("isSoundEnabled", !isSoundEnabled);
+  //   setSoundEnabled(!isSoundEnabled);
+  // };
+
+  // const toggleActiveTab=()=>{
+
+  // }
+
+  // auth related context
+
   const signupHandler = async (userDetails) => {
     setLoading(true);
     try {
@@ -78,6 +100,16 @@ const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const profilePicUploader = async (profilePic) => {
+    try {
+      const res = await axiosInstance.put("/update-profile", profilePic);
+      setCurrentUser(res.data);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     let isMounted = true;
     const checkUser = async () => {
@@ -114,6 +146,7 @@ const GlobalContextProvider = ({ children }) => {
     signupHandler,
     loginHandler,
     logoutHandler,
+    profilePicUploader,
   };
   return (
     <GlobalContext.Provider value={contextData}>
