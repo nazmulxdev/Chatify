@@ -13,7 +13,7 @@ const Router = createBrowserRouter([
     Component: Root,
     children: [
       {
-        path: "/chat",
+        index: true,
         element: (
           <PrivateRoutes>
             <ChatPage></ChatPage>

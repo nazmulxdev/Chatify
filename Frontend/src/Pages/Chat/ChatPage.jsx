@@ -1,14 +1,13 @@
 // import { useState } from "react";
+import useChatStore from "../../store/useChatStore";
+import ChatList from "./ChatList";
 import ChatToggleButton from "./ChatToggleButton";
 import ContactList from "./ContactList";
 import MessageArea from "./MessageArea";
 import ProfileHeader from "./ProfileHeader";
 
 const ChatPage = () => {
-  // const [activeTab, setActiveTab] = useState("chat");
-  // const [selectedUser, setSelectedUser] = useState(null);
-
-  // Mock data
+  const { activeTab } = useChatStore();
 
   return (
     <div className="flex h-[800px] max-w-screen-2xl bg-base-200">
@@ -45,7 +44,11 @@ const ChatPage = () => {
         </div>
 
         {/* Chat/Contact List */}
-        <ContactList></ContactList>
+        {activeTab === "chat" ? (
+          <ChatList></ChatList>
+        ) : (
+          <ContactList></ContactList>
+        )}
       </div>
 
       {/* Right Chat Area */}

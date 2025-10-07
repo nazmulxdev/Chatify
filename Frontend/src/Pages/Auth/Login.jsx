@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     // Handle login logic here
     loginHandler(formData);
-    navigate(location?.state ? location.state : "/chat");
+    navigate(location?.state ? location.state : "/");
   };
 
   return (

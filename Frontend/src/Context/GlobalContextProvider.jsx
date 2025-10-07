@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GlobalContext from "./globalContext";
 import useAxios from "../Hooks/useAxios";
 import Swal from "sweetalert2";
+import { data } from "react-router";
 
 const GlobalContextProvider = ({ children }) => {
   const axiosInstance = useAxios();
@@ -110,6 +111,19 @@ const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const handleGetAllContacts = async () => {
+    try {
+      const res = await axiosInstance.get("/contacts");
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  handleGetAllContacts().then((data) => {
+    console.log(data);
+  });
+
   useEffect(() => {
     let isMounted = true;
     const checkUser = async () => {
@@ -147,6 +161,7 @@ const GlobalContextProvider = ({ children }) => {
     loginHandler,
     logoutHandler,
     profilePicUploader,
+    handleGetAllContacts,
   };
   return (
     <GlobalContext.Provider value={contextData}>
