@@ -10,11 +10,14 @@ const ChatList = () => {
     setSelectedUser,
     isUserLoading,
     chats,
+    getMessagesByUserId,
   } = useChatStore();
 
   useEffect(() => {
     getMyChatPartners();
-  }, [getMyChatPartners]);
+    getMessagesByUserId(selectedUser?._id);
+  }, [getMyChatPartners, getMessagesByUserId, selectedUser]);
+  console.log(chats);
 
   if (isUserLoading) return <UserLoader></UserLoader>;
   if (chats.length === 0) return <NoChatFound></NoChatFound>;
@@ -33,7 +36,15 @@ const ChatList = () => {
           >
             <div className="relative">
               <div className="w-12 h-12 bg-gradient-to-r from-accent to-secondary rounded-full flex items-center justify-center text-white font-bold">
-                {user.name.charAt(0)}
+                {user?.profilePic ? (
+                  <img
+                    src={user?.profilePic}
+                    alt="Profile"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  <span>{user?.fullName.charAt(0)}</span>
+                )}
               </div>
               <div
                 className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-base-100 ${
@@ -49,7 +60,7 @@ const ChatList = () => {
             <div className="flex-1 ml-3 min-w-0">
               <div className="flex justify-between items-start">
                 <h3 className="font-semibold text-base-content truncate">
-                  {user.name}
+                  {user.fullName}
                 </h3>
                 <span className="text-xs text-base-content/50">
                   {user.time}

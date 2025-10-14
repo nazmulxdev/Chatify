@@ -34,7 +34,7 @@ const useChatStore = create((set, get) => ({
     set({ isUserLoading: true });
     try {
       const res = await axiosInstance.get("/chats");
-      set({ allContacts: res.data });
+      set({ chats: res.data });
     } catch (error) {
       console.log(error);
     } finally {
