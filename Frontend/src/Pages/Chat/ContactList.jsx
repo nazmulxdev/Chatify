@@ -9,11 +9,13 @@ const ContactList = () => {
     isUserLoading,
     allContacts,
     getAllContacts,
+    getMessagesByUserId,
   } = useChatStore();
 
   useEffect(() => {
     getAllContacts();
-  }, [getAllContacts]);
+    getMessagesByUserId(selectedUser?._id);
+  }, [getAllContacts, getMessagesByUserId, selectedUser]);
 
   if (isUserLoading) return <UserLoader></UserLoader>;
   return (
