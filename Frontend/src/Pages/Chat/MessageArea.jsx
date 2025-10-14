@@ -9,6 +9,7 @@ const MessageArea = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState();
   const fileRef = useRef(null);
+  const messageRef = useRef(null);
 
   useEffect(() => {
     const handleEscKey = (e) => {
@@ -16,6 +17,12 @@ const MessageArea = () => {
     };
     return () => window.removeEventListener("keydown", handleEscKey);
   }, [selectedUser]);
+
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const handleSendMessage = (event) => {
     event.preventDefault();
@@ -144,12 +151,14 @@ const MessageArea = () => {
       <div className="flex-1 overflow-y-auto p-4 bg-base-200">
         {selectedUser ? (
           <div className="space-y-4">
-            {messages.map((message) => {
+            {messages.map((message, index) => {
               const isSender = message.senderId === currentUser._id;
+              const isLastMessage = index === messages.length - 1;
 
               return (
                 <div
                   key={message._id}
+                  ref={isLastMessage ? messageRef : null}
                   className={`flex mb-3 ${
                     isSender ? "justify-end" : "justify-start"
                   }`}
